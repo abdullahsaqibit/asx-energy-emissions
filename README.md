@@ -8,7 +8,7 @@ A comparison of five ASX-listed energy producers (AGL, Beach Energy, Origin, San
 
 ## Data
 
-All from the [Clean Energy Regulator](https://cer.gov.au) (files in `data/raw/cer/`):
+All from the [Clean Energy Regulator](https://cer.gov.au) (files in `data/raw/cer/`). Based on Clean Energy Regulator material licensed under a Creative Commons Attribution 4.0 licence. The regulator's website content is under that licence unless marked otherwise; I did not check the licence marking on each individual dataset page.
 
 - **NGER corporate emissions**, 2016-17 to 2024-25: Scope 1 and 2 emissions by controlling corporation, Australian operations, July to June years.
 - **Safeguard Mechanism facility data**, 2016-17 to 2024-25: covered emissions, baselines, and carbon credits surrendered, by facility. The regulator changed the table layout in 2023-24, when the reformed Safeguard Mechanism began (1 July 2023), so the code harmonises two layouts.
