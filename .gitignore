@@ -1,0 +1,7 @@
+venv/
+.venv/
+__pycache__/
+.DS_Store
+.claude/
+# Company report PDFs (about 100 MB, third-party documents): not included
+data/raw/reports/
