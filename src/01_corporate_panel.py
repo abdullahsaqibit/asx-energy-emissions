@@ -19,7 +19,11 @@ OUT = ROOT / "data" / "processed"
 # Regex on the upper-cased organisation name -> short company label.
 COMPANIES = {
     "Woodside": r"^WOODSIDE",
-    "Santos": r"^SANTOS\b",
+    # From 2023-24 the Curtis Island GLNG plant (about 1.6 Mt a year) is reported by
+    # GLNG Operations Pty Ltd, a 30%-owned joint venture, not by Santos Limited. Before
+    # then Santos Limited reported the plant itself. Including GLNG Operations keeps
+    # the Santos series like-for-like. See the README for the alternative.
+    "Santos": r"^(SANTOS\b|GLNG OPERATIONS\b)",
     "Origin": r"^ORIGIN ENERGY\b",
     "AGL": r"^AGL ENERGY\b",
     "Beach": r"^BEACH ENERGY\b",
@@ -75,10 +79,16 @@ def main():
     print("Matched names (check nothing is missing or wrongly included):")
     print(panel.groupby(["company", "name"]).year.agg(["count", "min", "max"]).to_string())
 
-    # If a company has two matching rows in one year, flag it rather than guess.
+    # Where a group reports through more than one entity in a year (Santos Limited
+    # plus GLNG Operations from 2023-24), add them together and say so.
     dup = panel.groupby(["company", "year"]).size()
     if (dup > 1).any():
-        print("\nWARNING: more than one row for:\n", dup[dup > 1].to_string())
+        print("\nNote: combining several entities into one company-year row for:")
+        print(panel[panel.set_index(["company", "year"]).index.isin(dup[dup > 1].index)]
+              [["company", "year", "name", "scope1_t"]].to_string(index=False))
+    panel = (panel.groupby(["company", "year"], as_index=False)
+             .agg(name=("name", " + ".join), scope1_t=("scope1_t", "sum"),
+                  scope2_t=("scope2_t", "sum"), energy_gj=("energy_gj", "sum")))
 
     panel = panel.sort_values(["company", "year"])
     OUT.mkdir(parents=True, exist_ok=True)

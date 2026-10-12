@@ -81,6 +81,7 @@ year,facility,emitter,state,baseline,covered,accus_issued,accus_deemed_surrender
 2022-23,Varanus Hub,SANTOS LIMITED,WA,463700.0,256543,0.0,0.0,0.0,0.0,256543.0,Santos
 2023-24,Arcadia,Santos Limited,QLD,166220.0,108224,0.0,0.0,0.0,0.0,108224.0,Santos
 2023-24,Ballera,Santos Limited,QLD,120065.0,153917,0.0,0.0,33852.0,0.0,120065.0,Santos
+2023-24,Curtis Island GLNG Plant,GLNG OPERATIONS PTY LTD,QLD,1695720.0,1635447,0.0,0.0,0.0,0.0,1635447.0,Santos
 2023-24,Darwin LNG Plant,Santos Limited,NT,100000.0,241538,0.0,0.0,141538.0,0.0,100000.0,Santos
 2023-24,Fairview,Santos Limited,QLD,289078.0,214228,0.0,0.0,0.0,0.0,214228.0,Santos
 2023-24,Moomba Plant,Santos Limited,SA,2048421.0,2196816,2579.0,0.0,150974.0,0.0,2048421.0,Santos
@@ -90,6 +91,7 @@ year,facility,emitter,state,baseline,covered,accus_issued,accus_deemed_surrender
 2023-24,Varanus Hub,Santos Limited,WA,237234.0,281036,0.0,0.0,43802.0,0.0,237234.0,Santos
 2024-25,Arcadia,Santos Limited,QLD,144203.0,134510,0.0,0.0,0.0,0.0,134510.0,Santos
 2024-25,Ballera,Santos Limited,QLD,104065.0,149747,0.0,0.0,0.0,45682.0,104065.0,Santos
+2024-25,Curtis Island GLNG Plant,GLNG OPERATIONS PTY LTD,QLD,1610744.0,1677171,0.0,0.0,0.0,66427.0,1610744.0,Santos
 2024-25,Darwin LNG Plant,Santos Limited,NT,100000.0,10063,0.0,0.0,0.0,0.0,10063.0,Santos
 2024-25,Fairview,Santos Limited,QLD,264027.0,162315,0.0,0.0,0.0,0.0,162315.0,Santos
 2024-25,Moomba Plant,Santos Limited,SA,1782513.0,1078118,0.0,0.0,0.0,0.0,1078118.0,Santos

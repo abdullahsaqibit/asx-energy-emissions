@@ -77,7 +77,7 @@ def chart1_index(corp):
 
     fig, ax = plt.subplots(figsize=(9, 5.6))
     fig.subplots_adjust(left=0.08, right=0.84, top=0.80, bottom=0.24)
-    setup(fig, ax, "Santos and AGL cut Scope 1 emissions the most; Beach rose",
+    setup(fig, ax, "AGL cut Scope 1 emissions the most; Beach was the only one to rise",
           "Scope 1 emissions by company, indexed to 2017-18 = 100 (NGER, Australian operations)")
     x = range(len(idx))
     ax.axhline(100, color=INK2, linewidth=1, zorder=1)
@@ -93,7 +93,7 @@ def chart1_index(corp):
     ax.set_yticks([40, 60, 80, 100, 120, 140])
     ax.set_xlim(-0.2, len(idx) - 1 + 0.2)
     ax.legend(loc="lower left", frameon=False, fontsize=9, labelcolor=INK2, ncol=5, bbox_to_anchor=(0, -0.2), handlelength=1.4)
-    footer(fig, "Emissions are not adjusted for production, acquisitions or asset sales.")
+    footer(fig, "Santos includes GLNG Operations from 2023-24 (see README). Emissions are not adjusted for production, acquisitions or asset sales.")
     fig.savefig(FIG / "fig1_scope1_index.png", dpi=200, facecolor=SURFACE)
     plt.close(fig)
     return idx
@@ -159,6 +159,25 @@ def chart3_credits(sg):
     return p
 
 
+def santos_sensitivity(corp):
+    """Santos Scope 1 with and without the Curtis Island GLNG plant, in every year.
+
+    From 2023-24 the plant is reported by GLNG Operations Pty Ltd (30% owned), so the
+    two treatments give different trends. Facility-level covered emissions for the
+    plant (Safeguard data) are used as a proxy for its NGER Scope 1.
+    """
+    fac = pd.read_csv(PROC / "facility_panel.csv")
+    glng = fac[(fac.company == "Santos") & fac.facility.str.contains("GLNG", case=False)].groupby("year").covered.sum()
+    incl = corp[corp.company == "Santos"].set_index("year").scope1_t
+    excl = incl - glng.reindex(incl.index).fillna(0)
+    out = pd.DataFrame({"incl_glng_mt": incl / 1e6, "excl_glng_mt": excl / 1e6}).round(2)
+    out.to_csv(FIG / "santos_sensitivity.csv")
+    for base in ("2017-18", "2020-21"):
+        print(f"Santos {base} -> 2024-25: incl GLNG {incl['2024-25'] / incl[base] - 1:+.0%}, "
+              f"excl GLNG {excl['2024-25'] / excl[base] - 1:+.0%}")
+    return out
+
+
 def main():
     FIG.mkdir(exist_ok=True)
     corp = pd.read_csv(PROC / "corporate_panel.csv")
@@ -167,6 +186,7 @@ def main():
     idx = chart1_index(corp)
     ratio = chart2_baseline(sg)
     credits = chart3_credits(sg)
+    santos_sensitivity(corp)
 
     # The table behind the charts, for the README and for readers who want numbers.
     t1 = (corp.pivot(index="year", columns="company", values="scope1_t") / 1e6).round(2)

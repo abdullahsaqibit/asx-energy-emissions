@@ -23,7 +23,11 @@ OUT = ROOT / "data" / "processed"
 # Responsible-emitter names start with the group name (subsidiaries included).
 COMPANIES = {
     "Woodside": r"^WOODSIDE",
-    "Santos": r"^SANTOS\b",
+    # From 2023-24 the Curtis Island GLNG plant (about 1.6 Mt a year) is reported by
+    # GLNG Operations Pty Ltd, a 30%-owned joint venture, not by Santos Limited. Before
+    # then Santos Limited reported the plant itself. Including GLNG Operations keeps
+    # the Santos series like-for-like. See the README for the alternative.
+    "Santos": r"^(SANTOS\b|GLNG OPERATIONS\b)",
     "Origin": r"^ORIGIN ENERGY\b",
     "AGL": r"^AGL\b",
     "Beach": r"^BEACH ENERGY\b",
