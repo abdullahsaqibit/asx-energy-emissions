@@ -23,7 +23,7 @@ COMPANIES = {
     # GLNG Operations Pty Ltd, a 30%-owned joint venture, not by Santos Limited. Before
     # then Santos Limited reported the plant itself. Including GLNG Operations keeps
     # the Santos series like-for-like. See the README for the alternative.
-    "Santos": r"^(SANTOS\b|GLNG OPERATIONS\b)",
+    "Santos": r"^(?:SANTOS\b|GLNG OPERATIONS\b)",
     "Origin": r"^ORIGIN ENERGY\b",
     "AGL": r"^AGL ENERGY\b",
     "Beach": r"^BEACH ENERGY\b",
